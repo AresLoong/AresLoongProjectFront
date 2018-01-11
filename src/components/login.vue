@@ -33,7 +33,7 @@
     },
     methods: {
       goHome (s) {
-        this.$router.push({ path: '/home?S=' + s})
+        this.$router.push({path: '/home?S=' + s})
       },
       submitForm () {
         console.log(this.loginInformation)
@@ -48,12 +48,15 @@
             }
           })
           .then(response => {
-            console.log('获取信息成功')
-            console.log(response)
-            if (this.loginInformation.phone  ==  response.data.data[0].username && this.loginInformation.password == response.data.data[0].password) {
-              this.goHome(response.data.data[0]._id)
-            } else {
-              alert('账号密码错误')
+            if (response.data.data.type === 'success') {
+              console.log(response)
+              this.goHome(response.data.data._id)
+            } else if (response.data.data.type === 'error') {
+              console.log(response)
+              alert(response.data.data.message)
+            } else if (response.data.data.type === 'login error') {
+              console.log(response)
+              alert(response.data.data.message)
             }
           }, response => {
             console.log('获取信息失败')
