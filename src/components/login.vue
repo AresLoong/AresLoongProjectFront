@@ -84,7 +84,7 @@
     color: #42b983;
   }
   .login-main{
-    background-color: bisque;
+    /*background-color: bisque;*/
     width:430px;
     margin:0 auto;
     border: 1px solid #ebebeb;

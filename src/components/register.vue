@@ -1,22 +1,25 @@
 <template>
   <div class="login">
-    <h1>{{ msg }}</h1>
     <div id="login-main" class="login-main">
+      <h1>{{ msg }}</h1>
       <div style="margin: 20px;"></div>
-      <el-form class="login-form">
-        <el-form-item label="" class="login-information">
-          <el-input prefix-icon="el-icon-mobile-phone" placeholder="请输入账号" v-model="formLabelAlign.name"></el-input>
+      <el-form class="login-form" ref="registerInformationRef" :model="registerInformation">
+        <el-form-item label="" class="login-information" prop="phone">
+          <el-input prefix-icon="el-icon-mobile-phone" placeholder="请输入账号" v-model="registerInformation.phone"></el-input>
         </el-form-item>
-        <el-form-item label="" class="login-information">
-          <el-input prefix-icon="el-icon-goods" type="password" placeholder="请输入密码" v-model="formLabelAlign.region"></el-input>
+        <el-form-item label="" class="login-information" prop="password">
+          <el-input prefix-icon="el-icon-goods" type="password" placeholder="请输入密码" v-model="registerInformation.password"></el-input>
+        </el-form-item>
+        <el-form-item label="" class="login-information" prop="securityCode">
+          <el-input prefix-icon="el-icon-goods" type="password" placeholder="请输入安全码" v-model="registerInformation.securityCode"></el-input>
         </el-form-item>
         <el-form-item>
-          <router-link to="/register" class="login-register"><el-button type="text">注册</el-button></router-link>
+          <router-link to="/login" class="login-register"><el-button type="text">登录</el-button></router-link>
           <router-link to="/forget" class="login-forget"><el-button type="text">忘记密码</el-button></router-link>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('numberValidateForm')">提交</el-button>
-          <el-button @click="resetForm('numberValidateForm')">重置</el-button>
+          <el-button type="primary" @click="submitForm('registerInformationRef')">提交</el-button>
+          <el-button @click="resetForm('registerInformationRef')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -31,11 +34,58 @@
       return {
         msg: '注册',
         labelPosition: 'center',
-        formLabelAlign: {
-          name: '',
-          region: '',
-          type: ''
+        registerInformation: {
+          phone: '',
+          password: '',
+          securityCode: ''
         }
+      }
+    },
+    methods: {
+      goHome (s) {
+        this.$router.push({path: '/login?S=' + s})
+      },
+      submitForm (formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            console.log(valid)
+//            alert('submit!')
+            console.log(this.registerInformation)
+            this.sendAjax()
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
+      },
+      resetForm (formName) {
+        this.$refs[formName].resetFields()
+      },
+      sendAjax () {
+        this.$axios.get('/ajaxurl/users/register',
+          {
+            params: {
+              phone: this.registerInformation.phone,
+              password: this.registerInformation.password,
+              securityCode: this.registerInformation.securityCode
+            }
+          })
+          .then(response => {
+            if (response.data.data.type === 'success') {
+              console.log(response)
+              alert(response.data.data.message)
+              this.goHome(response.data.data._id)
+            } else if (response.data.data.type === 'error') {
+              console.log(response)
+              alert(response.data.data.message)
+            } else if (response.data.data.type === 'login error') {
+              console.log(response)
+              alert(response.data.data.message)
+            }
+          }, response => {
+            console.log('获取信息失败')
+            console.log(response)
+          })
       }
     }
   }
@@ -58,6 +108,7 @@
     color: #42b983;
   }
   .login-main{
+    /*background-color: bisque;*/
     width:430px;
     margin:0 auto;
     border: 1px solid #ebebeb;
