@@ -66,8 +66,8 @@
           {
             params: {
               phone: this.registerInformation.phone,
-              password: this.registerInformation.password,
-              securityCode: this.registerInformation.securityCode
+              password: this.md5(this.registerInformation.password),
+              securityCode: this.md5(this.registerInformation.securityCode)
             }
           })
           .then(response => {

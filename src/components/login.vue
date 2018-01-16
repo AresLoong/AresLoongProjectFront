@@ -44,7 +44,7 @@
           {
             params: {
               phone: this.loginInformation.phone,
-              password: this.loginInformation.password
+              password: this.md5(this.loginInformation.password)
             }
           })
           .then(response => {

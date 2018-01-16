@@ -14,7 +14,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "element-ui": "^2.0.9",
+    "js-base64": "^2.4.0",
+    "js-md5": "^0.7.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

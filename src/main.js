@@ -7,7 +7,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
+import md5 from 'js-md5'
+let Base64 = require('js-base64').Base64
 Vue.prototype.$axios = axios
+Vue.prototype.md5 = md5
+Vue.prototype.Base64 = Base64
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
