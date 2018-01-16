@@ -50,7 +50,7 @@
           .then(response => {
             if (response.data.data.type === 'success') {
               console.log(response)
-              this.goHome(response.data.data._id)
+              this.goHome(response.data.data.S)
             } else if (response.data.data.type === 'error') {
               console.log(response)
               alert(response.data.data.message)
