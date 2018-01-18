@@ -12,7 +12,7 @@ let Base64 = require('js-base64').Base64
 Vue.prototype.$axios = axios
 Vue.prototype.md5 = md5
 Vue.prototype.Base64 = Base64
-
+// Vue.prototype.ajaxurl = 'http://211.159.166.222:3000'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

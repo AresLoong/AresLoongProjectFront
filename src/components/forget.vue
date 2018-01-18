@@ -62,7 +62,7 @@
         this.$refs[formName].resetFields()
       },
       sendAjax () {
-        this.$axios.get('/ajaxurl/users/forget',
+        this.$axios.get(process.env.API_HOST + '/users/forget',
           {
             params: {
               phone: this.registerInformation.phone,

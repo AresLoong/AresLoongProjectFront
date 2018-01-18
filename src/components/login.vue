@@ -40,7 +40,7 @@
         this.sendAjax()
       },
       sendAjax () {
-        this.$axios.get('/ajaxurl/users/users',
+        this.$axios.get(process.env.API_HOST + '/users/users',
           {
             params: {
               phone: this.loginInformation.phone,
