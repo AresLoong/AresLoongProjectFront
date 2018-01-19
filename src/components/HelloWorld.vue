@@ -22,6 +22,7 @@
     <ul>
       <li><router-link to="/login"><el-button type="primary">进入新世界</el-button></router-link></li>
     </ul>
+    <h2>{{peopleCountingMsg}}{{peopleAllNum}}{{peopleMsg}}</h2>
   </div>
 </template>
 
@@ -30,7 +31,34 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      peopleCountingMsg: '本站累计访问人数：',
+      peopleAllNum: 'Loading...',
+      peopleMsg: ''
+    }
+  },
+  mounted () {
+    // 自调用
+    this.sendAjax()
+  },
+  methods: {
+    sendAjax () {
+      this.$axios.get(process.env.API_HOST + '/users/peopleCounting',
+        {
+          params: {
+            peopleCountingSetting: 'peopleCountingSetting'
+          }
+        })
+        .then(response => {
+          if (response.data.data.type === 'success') {
+            console.log(response)
+            this.peopleAllNum = response.data.data.message
+            this.peopleMsg = '人'
+          }
+        }, response => {
+          console.log('获取信息失败')
+          console.log(response)
+        })
     }
   }
 }
