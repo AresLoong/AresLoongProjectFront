@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     sendAjax () {
-      this.$axios.get(process.env.API_HOST + '/users/peopleCounting',
+      this.$axios.get(process.env.API_HOST + '/statistics/peopleCounting',
         {
           params: {
             peopleCountingSetting: 'peopleCountingSetting'
