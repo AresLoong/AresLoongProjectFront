@@ -18,7 +18,7 @@
       <!--<li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>-->
       <!--<li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>-->
     <!--</ul>-->
-    <h2>MyProject</h2>
+    <h2>点击下方进入全新的世界</h2>
     <ul>
       <li><router-link to="/login"><el-button type="primary">进入新世界</el-button></router-link></li>
     </ul>
@@ -31,8 +31,8 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      peopleCountingMsg: '本站累计访问人数：',
+      msg: '欢迎来到AresLoong的小屋',
+      peopleCountingMsg: '本站累计访问次数：',
       peopleAllNum: 'Loading...',
       peopleMsg: ''
     }
@@ -53,7 +53,7 @@ export default {
           if (response.data.data.type === 'success') {
             console.log(response)
             this.peopleAllNum = response.data.data.message
-            this.peopleMsg = '人'
+            this.peopleMsg = '次'
           }
         }, response => {
           console.log('获取信息失败')

@@ -3,10 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>myproject</title>
+    <title>AresLoong的小屋</title>
   </head>
   <body>
+  <div style="text-align: center">
+    <iframe style="height: 25px;" id="fancybox-frame" name="fancybox-frame1519914765120" frameborder="0" scrolling="no" hspace="0"  src="http://i.tianqi.com/index.php?c=code&a=getcode&id=40&h=25&w=310"></iframe>
+  </div>
+  <h4 style="text-align: center">
+    <span>你好：</span>
+    <span id="loginUserNameShow">读取中</span>
+  </h4>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+  <script type="text/javascript">
+      document.getElementById('loginUserNameShow').innerHTML = sessionStorage.getItem('loginUser') || '陌生人'
+  </script>
   </body>
 </html>

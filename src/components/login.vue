@@ -31,7 +31,21 @@
         loginInformation: {}
       }
     },
+    mounted () {
+      this.checkLogin()
+    },
     methods: {
+      saveUserInfo (data, islogin) {
+        if (islogin === 'yes') {
+          sessionStorage.setItem('loginUser', data.loginUser)
+          sessionStorage.setItem('sessionID', data.sessionID)
+          document.getElementById('loginUserNameShow').innerHTML = sessionStorage.getItem('loginUser') || '陌生人'
+        } else {
+          sessionStorage.removeItem('loginUser')
+          sessionStorage.removeItem('sessionID')
+          document.getElementById('loginUserNameShow').innerHTML = sessionStorage.getItem('loginUser') || '陌生人'
+        }
+      },
       goHome (s) {
         this.$router.push({path: '/home?S=' + s})
       },
@@ -50,7 +64,37 @@
           .then(response => {
             if (response.data.data.type === 'success') {
               console.log(response)
+              this.saveUserInfo(response.data.data, 'yes')
               this.goHome(response.data.data.S)
+            } else if (response.data.data.type === 'error') {
+              console.log(response)
+              alert(response.data.data.message)
+            } else if (response.data.data.type === 'login error') {
+              console.log(response)
+              alert(response.data.data.message)
+            }
+          }, response => {
+            console.log('获取信息失败')
+            console.log(response)
+          })
+      },
+      checkLogin () {
+        this.$axios.get(process.env.API_HOST + '/users/sessionCheckLogin',
+          {
+            params: {
+//              phone: this.loginInformation.phone,
+//              password: this.md5(this.loginInformation.password)
+            }
+          })
+          .then(response => {
+            if (response.data.data.type === 'success') {
+              console.log(response)
+              if (response.data.data.isLogined) {
+                this.saveUserInfo(response.data.data, 'yes')
+              } else {
+                this.saveUserInfo(response.data.data, 'no')
+              }
+//              this.goHome(response.data.data.S)
             } else if (response.data.data.type === 'error') {
               console.log(response)
               alert(response.data.data.message)
